@@ -36,7 +36,7 @@ print(df.head())
 conexao = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Nay@1404",
+    password="senha",
     database="teste"
 )
 
