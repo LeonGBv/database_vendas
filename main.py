@@ -1,15 +1,7 @@
 import pandas as pd
 import mysql.connector
 
-# =========================
-# LER EXCEL
-# =========================
-
 df = pd.read_excel("vendas.xlsx")
-
-# =========================
-# LIMPEZA DOS DADOS
-# =========================
 
 # Remove linhas totalmente vazias
 df = df.dropna(how="all")
@@ -29,10 +21,6 @@ df = df.where(pd.notnull(df), None)
 
 print(df.head())
 
-# =========================
-# CONEXÃO MYSQL
-# =========================
-
 conexao = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -41,10 +29,6 @@ conexao = mysql.connector.connect(
 )
 
 cursor = conexao.cursor()
-
-# =========================
-# INSERT IGNORANDO IDS DUPLICADOS
-# =========================
 
 colunas = ", ".join(df.columns)
 placeholders = ", ".join(["%s"] * len(df.columns))
@@ -60,10 +44,6 @@ for _, linha in df.iterrows():
 conexao.commit()
 
 print(f"{cursor.rowcount} registros inseridos!")
-
-# =========================
-# FECHAR CONEXÃO
-# =========================
 
 cursor.close()
 conexao.close()
